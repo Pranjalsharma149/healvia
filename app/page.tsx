@@ -1,11 +1,9 @@
 "use client";
 
-
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Image from "next/image";
-
 
 import {
   Eye,
@@ -17,14 +15,12 @@ import {
   Hospital,
 } from "lucide-react";
 
-
 import {
   UserGroupIcon,
   ClockIcon,
   BuildingOffice2Icon,
   CurrencyRupeeIcon,
 } from "@heroicons/react/24/solid";
-
 
 /* ---------------- SERVICES DATA ---------------- */
 const services = [
@@ -86,7 +82,6 @@ const services = [
   },
 ];
 
-
 export default function Home() {
   return (
     <>
@@ -108,26 +103,26 @@ export default function Home() {
         .value-card.light { @apply bg-[#F5F3FF]; }
       `}</style>
 
-
       <Header />
 
-
       {/* ---------------- HERO SECTION ---------------- */}
-      <section className="relative w-full overflow-hidden">
-        <div className="w-full h-auto">
+      {/* Uses modern Next.js Image handling to ensure l1.png scales automatically */}
+      <section className="relative w-full overflow-hidden bg-white">
+        <div className="w-full h-auto flex flex-col items-center">
           <Image
-            src="/ps
-            .png"
+            src="/ps.png"
             alt="HealviaCare Banner"
             width={1920}
             height={1080}
-            layout="responsive"
+            sizes="100vw"
+            style={{
+              width: '100%',
+              height: 'auto',
+            }}
             priority
-            className="w-full h-auto object-contain"
           />
         </div>
       </section>
-
 
       {/* ---------------- SERVICES SECTION ---------------- */}
       <section className="py-12 md:py-20 bg-gradient-to-b from-white to-slate-50">
@@ -140,31 +135,21 @@ export default function Home() {
           </p>
         </div>
 
-
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((s, i) => {
             const Icon = s.icon;
-
-
             return (
               <Link key={i} href={s.href}>
                 <div className="group p-6 rounded-3xl bg-white shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col h-full">
-                  
                   <div className={`w-14 h-14 md:w-16 md:h-16 flex items-center justify-center rounded-2xl mb-5 ${s.color} group-hover:scale-110 transition`}>
                     <Icon size={28} className="text-[#1D646B]" />
                   </div>
-
-
                   <h3 className="text-lg font-bold text-[#1D646B] mb-2">
                     {s.title}
                   </h3>
-
-
                   <p className="text-slate-500 text-sm mb-6 flex-grow">
                     {s.desc}
                   </p>
-
-
                   <div className="text-xs font-bold text-[#1D646B] uppercase">
                     Consult Now →
                   </div>
@@ -175,17 +160,13 @@ export default function Home() {
         </div>
       </section>
 
-
       {/* ---------------- WHY CHOOSE US ---------------- */}
       <section className="py-16 md:py-24 px-6 lg:px-20 bg-gradient-to-b from-[#f8fbfb] to-[#eef6f6]">
-        
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-[#1D646B]">
             Why Choose HealviaCare?
           </h2>
         </div>
-
-
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 max-w-7xl mx-auto">
           {[
             {
@@ -230,7 +211,6 @@ export default function Home() {
         </div>
       </section>
 
-
       {/* ---------------- MISSION SECTION ---------------- */}
       <section className="py-16 md:py-24 px-6 lg:px-20 bg-gradient-to-b from-white to-[#f6fbfb]">
         <div className="text-center mb-12 md:mb-16">
@@ -257,7 +237,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
 
       {/* ---------------- OUR VISION SECTION ---------------- */}
       <section className="py-16 md:py-24 px-6 lg:px-20 bg-gradient-to-b from-[#f6fbfb] to-white">
@@ -295,7 +274,6 @@ export default function Home() {
         </div>
       </section>
 
-
       {/* ---------------- OUR VALUES SECTION ---------------- */}
       <section className="py-16 md:py-24 px-6 lg:px-20 bg-gradient-to-b from-white to-[#f4fbfb]">
         <div className="text-center mb-12 md:mb-16">
@@ -318,7 +296,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
 
       {/* ---------------- PATIENT EXPERIENCES ---------------- */}
       <section className="py-16 md:py-24 px-6 lg:px-20 bg-gradient-to-br from-[#f8fbfb] to-[#eef6f6]">
@@ -355,7 +332,6 @@ export default function Home() {
         </div>
       </section>
 
-
       {/* ---------------- CTA SECTION ---------------- */}
       <section className="relative py-20 md:py-28 px-6 lg:px-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#0F3D3E] via-[#145A5C] to-[#1D646B]"></div>
@@ -380,7 +356,6 @@ export default function Home() {
           </p>
         </div>
       </section>
-
 
       <Footer />
     </>
