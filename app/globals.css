@@ -19,43 +19,70 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 
-/* ================= HERO SECTION ================= */
+/* ================= HERO SECTION (responsive) ================= */
+
+/* Base hero section */
 .hero-section {
   position: relative;
   width: 100%;
-  height: 100vh;
-
-  background-image: url("/ps.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  min-height: 60vh;    /* mobile–tablet friendly */
+  height: 100dvh;      /* modern: full viewport */
+  max-height: 900px;   /* caps on huge desktop */
+  overflow: hidden;
 }
 
+/* Tailwind‑style classes via raw CSS */
+.hero-section {
+  background: url('/ps.png') center / cover no-repeat;
+}
+
+/* overlay that works on all devices */
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 128, 128, 0.2);
+  background: linear-gradient(135deg, rgba(0, 128, 128, 0.25), rgba(0, 0, 0, 0.15));
 }
+
+/* optional: soft vignette */
+.hero-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    transparent 0%,
+    rgba(0, 0, 0, 0.15) 100%
+  );
+}
+
+
 
 /* ================= GLOBAL IMPROVEMENTS ================= */
 
-/* Smooth UI */
+/* Smooth transitions */
 * {
+  box-sizing: border-box;
   transition: all 0.2s ease-in-out;
 }
 
-/* Image responsiveness */
+/* Responsive images */
 img {
   max-width: 100%;
   height: auto;
   image-rendering: -webkit-optimize-contrast;
 }
 
-/* ================= VALUES SECTION ================= */
 
-/* Auto scroll animation */
+
+
+/* ================= VALUES SECTION (responsive marquee) ================= */
+
+/* Keyframes for auto‑scroll */
 @keyframes scrollX {
   0% {
     transform: translateX(0);
@@ -65,22 +92,50 @@ img {
   }
 }
 
-.animate-scroll {
-  animation: scrollX 30s linear infinite;
+/* Container wrapper style */
+.relative.overflow-hidden {
+  position: relative;
+  overflow: hidden;
 }
 
-/* Card base */
-.value-card {
-  min-width: 260px;
-  max-width: 260px;
-  background: white;
-  padding: 24px;
-  border-radius: 24px;
-  border: 1px solid #e5e7eb;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-  transition: all 0.3s ease;
-  flex-shrink: 0;
+/* Scrollable horizontal row */
+.flex.w-max.animate-scroll {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  animation: scrollX 30s linear infinite;
+  padding: 0.5rem 0;
 }
+
+/* Pause scroll on hover */
+.flex.w-max.animate-scroll:hover {
+  animation-play-state: paused;
+}
+
+
+/* Card base (responsive sizing) */
+.value-card {
+  min-width: calc(280px - 1.5rem);   /* mobile */
+  max-width: 280px;
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 1.5rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+
+/* Tablet / desktop: slightly larger */
+@media (min-width: 768px) {
+  .value-card {
+    min-width: 300px;
+    max-width: 300px;
+    padding: 1.5rem 1.75rem;
+  }
+}
+
 
 /* Alternate colors */
 .value-card.green {
@@ -91,33 +146,52 @@ img {
   background: #F0FFFB;
 }
 
+
 /* Icon */
 .value-card .icon {
-  font-size: 28px;
-  margin-bottom: 12px;
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  display: block;
+  text-align: center;
 }
+
 
 /* Title */
 .value-card h3 {
-  font-size: 18px;
+  font-size: 0.95rem;
   font-weight: 700;
   color: #1D646B;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
 }
+
+/* Desktop title */
+@media (min-width: 768px) {
+  .value-card h3 {
+    font-size: 1rem;
+  }
+}
+
 
 /* Text */
 .value-card p {
-  font-size: 14px;
+  font-size: 0.8125rem;
   color: #64748b;
+  line-height: 1.5;
 }
+
+/* Desktop paragraph */
+@media (min-width: 768px) {
+  .value-card p {
+    font-size: 0.875rem;
+  }
+}
+
 
 /* Hover effect */
 .value-card:hover {
-  transform: translateY(-8px) scale(1.03);
-  box-shadow: 0 20px 40px rgba(29, 100, 107, 0.2);
-}
-
-/* Pause on hover */
-.animate-scroll:hover {
-  animation-play-state: paused;
+  transform: translateY(-6px) scale(1.03);
+  box-shadow:
+    0 15px 30px rgba(29, 100, 107, 0.18),
+    0 0 20px rgba(29, 100, 107, 0.1);
 }
