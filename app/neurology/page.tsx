@@ -1,0 +1,235 @@
+"use client";
+
+import { useState } from "react";
+import { supabase } from "@/lib/supabase";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { 
+  Activity, 
+  ChevronRight, 
+  CheckCircle2, 
+  Zap, 
+  ShieldCheck, 
+  Stethoscope,
+  ArrowRight,
+  Bone
+} from "lucide-react";
+
+export default function OrthopedicsPage() {
+  const [form, setForm] = useState({ name: "", phone: "", city: "", service: "Orthopedics" });
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const treatments = [
+    {
+      title: "Knee Replacement",
+      desc: "Robotic-assisted precision for faster recovery and better joint alignment.",
+      icon: <Bone className="text-teal-500" />,
+      tag: "Robotic"
+    },
+    {
+      title: "Hip Replacement",
+      desc: "Minimally invasive surgery for long-lasting mobility and minimal scarring.",
+      icon: <Activity className="text-blue-500" />,
+      tag: "Fast Recovery"
+    },
+    {
+      title: "Spine Surgery",
+      desc: "Endoscopic treatments for slip disc, sciatica, and chronic back pain.",
+      icon: <Stethoscope className="text-emerald-500" />,
+      tag: "Endoscopic"
+    },
+    {
+      title: "Sports Injuries",
+      desc: "Advanced ACL/MCL repair and shoulder reconstruction for athletes.",
+      icon: <Zap className="text-orange-500" />,
+      tag: "Arthroscopy"
+    }
+  ];
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const { error } = await supabase.from("leads").insert([form]);
+      if (error) throw error;
+      setSubmitted(true);
+    } catch (error) {
+      alert("Connectivity issue. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <Header />
+      <main className="pt-20 bg-white">
+        
+        {/* --- HERO SECTION --- */}
+        <section className="relative bg-[#0F172A] py-20 lg:py-32 px-6 overflow-hidden text-white">
+          <div className="absolute top-0 right-0 w-1/2 h-full bg-[#1D646B]/10 blur-[120px] rounded-full -translate-y-1/2"></div>
+          
+          <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16 relative z-10">
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="lg:w-1/2"
+            >
+              <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full text-teal-400 text-xs font-black uppercase tracking-widest mb-8 border border-white/5">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
+                </span>
+                Robotic-Assisted Joint Care
+              </div>
+              <h1 className="text-5xl lg:text-7xl font-black mb-6 leading-[1.1] tracking-tight">
+                Regain Your <br/>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-400">Mobility.</span>
+              </h1>
+              <p className="text-xl text-slate-400 mb-10 max-w-lg font-medium leading-relaxed">
+                India's leading network for Robotic Knee & Hip replacement. Advanced physiotherapy and 0% EMI options available.
+              </p>
+              
+              <div className="flex flex-wrap gap-8 border-t border-white/10 pt-10">
+                <div>
+                  <p className="text-3xl font-black text-white">15,000+</p>
+                  <p className="text-teal-500 text-sm font-bold uppercase tracking-wider">Joints Replaced</p>
+                </div>
+                <div>
+                  <p className="text-3xl font-black text-white">98.5%</p>
+                  <p className="text-teal-500 text-sm font-bold uppercase tracking-wider">Success Rate</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* FORM CARD */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="lg:w-1/3 w-full"
+            >
+              {submitted ? (
+                <div className="bg-white p-12 rounded-[40px] shadow-2xl text-center border-4 border-emerald-50 text-slate-900">
+                  <CheckCircle2 size={60} className="text-emerald-500 mx-auto mb-6" />
+                  <h2 className="text-2xl font-black mb-2">Request Sent!</h2>
+                  <p className="text-slate-500 mb-6 font-medium">Our orthopedic counselor will call you within 15 minutes.</p>
+                  <button onClick={() => setSubmitted(false)} className="text-teal-600 font-bold hover:underline">Book for another patient</button>
+                </div>
+              ) : (
+                <div className="bg-white p-10 rounded-[40px] shadow-2xl text-slate-900 border border-slate-100">
+                  <h2 className="text-2xl font-black mb-2 text-[#1D646B]">Consult Expert</h2>
+                  <p className="text-slate-500 text-sm mb-8 font-medium">Get a call from a top orthopedic surgeon.</p>
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <input 
+                      type="text" placeholder="Patient Name" required 
+                      className="w-full p-4 rounded-2xl bg-slate-50 border-none outline-none focus:ring-2 focus:ring-[#1D646B] font-medium"
+                      value={form.name} onChange={(e) => setForm({...form, name: e.target.value})}
+                    />
+                    <input 
+                      type="tel" placeholder="Phone Number" required 
+                      className="w-full p-4 rounded-2xl bg-slate-50 border-none outline-none focus:ring-2 focus:ring-[#1D646B] font-medium"
+                      value={form.phone} onChange={(e) => setForm({...form, phone: e.target.value})}
+                    />
+                    <select 
+                      className="w-full p-4 rounded-2xl bg-slate-50 border-none outline-none focus:ring-2 focus:ring-[#1D646B] font-medium appearance-none cursor-pointer"
+                      value={form.city} onChange={(e) => setForm({...form, city: e.target.value})}
+                      required
+                    >
+                      <option value="">Select City</option>
+                      <option value="Delhi">Delhi</option>
+                      <option value="Mumbai">Mumbai</option>
+                      <option value="Pune">Pune</option>
+                    </select>
+                    <button 
+                      disabled={loading}
+                      className="w-full py-5 bg-[#1D646B] text-white rounded-2xl font-black text-lg hover:bg-[#144b50] shadow-xl shadow-teal-900/20 transition-all flex items-center justify-center gap-2"
+                    >
+                      {loading ? "Booking..." : "Get Free Expert Call"} <ArrowRight size={20} />
+                    </button>
+                  </form>
+                </div>
+              )}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* --- SPECIALTY GRID --- */}
+        <section className="py-24 max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">Our Specialties</h2>
+            <p className="text-slate-500 mt-4 text-lg font-medium">Precision treatments for every bone and joint concern.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {treatments.map((t, i) => (
+              <div key={i} className="group p-10 bg-white rounded-[40px] border border-slate-100 shadow-sm hover:shadow-2xl hover:border-teal-500/20 transition-all duration-500">
+                <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:scale-110 group-hover:bg-teal-50 transition-all duration-300">
+                  {t.icon}
+                </div>
+                <div className="inline-block px-3 py-1 bg-teal-50 text-teal-600 text-[10px] font-black uppercase tracking-widest rounded-lg mb-4">
+                  {t.tag}
+                </div>
+                <h3 className="text-xl font-black text-slate-900 mb-3">{t.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed font-medium">{t.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* --- RECOVERY HIGHLIGHT --- */}
+        <section className="py-24 bg-slate-50">
+          <div className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center gap-20">
+            <div className="lg:w-1/2 relative">
+               <div className="aspect-[4/5] bg-slate-200 rounded-[60px] overflow-hidden shadow-2xl">
+                 <Image 
+                    src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800" 
+                    alt="Orthopedic Recovery" fill className="object-cover hover:scale-105 transition-transform duration-700"
+                 />
+               </div>
+               <div className="absolute -bottom-10 -right-10 bg-white p-8 rounded-[40px] shadow-2xl max-w-xs border border-teal-50">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center">
+                        <Activity size={20} />
+                    </div>
+                    <p className="text-[#1D646B] font-black text-lg">Fast-Track Recovery</p>
+                  </div>
+                  <p className="text-sm text-slate-500 leading-relaxed font-medium">92% of our patients begin walking comfortably within 24 hours of surgery.</p>
+               </div>
+            </div>
+            <div className="lg:w-1/2">
+              <h2 className="text-4xl lg:text-6xl font-black text-slate-900 mb-10 tracking-tight leading-tight">Patient-First Care Path</h2>
+              <div className="space-y-10">
+                {[
+                  {h: "Digital 3D Planning", d: "Pre-operative mapping of your joint for a personalized implant fit.", i: "01"},
+                  {h: "Robotic Precision", d: "Sub-millimeter accuracy ensuring bone preservation and minimal pain.", i: "02"},
+                  {h: "Advanced Physiotherapy", d: "Home-based rehab support to get you back to your active life.", i: "03"}
+                ].map((item, idx) => (
+                  <div key={idx} className="flex gap-8 group">
+                    <div className="w-16 h-16 bg-white border border-slate-200 text-[#1D646B] rounded-[24px] flex items-center justify-center shrink-0 font-black text-xl shadow-sm group-hover:bg-[#1D646B] group-hover:text-white transition-all duration-300">
+                        {item.i}
+                    </div>
+                    <div>
+                      <h4 className="font-black text-2xl text-slate-900 mb-2">{item.h}</h4>
+                      <p className="text-slate-500 font-medium leading-relaxed">{item.d}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              <button 
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="mt-12 flex items-center gap-3 text-[#1D646B] font-black text-lg group"
+              >
+                Start your journey to mobility <ChevronRight className="group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </main>
+      <Footer />
+    </>
+  );
+}

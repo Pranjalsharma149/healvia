@@ -1,17 +1,12 @@
 @import "tailwindcss";
 
+/* ================= BASE THEME ================= */
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* ================= DARK MODE ================= */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -19,8 +14,110 @@
   }
 }
 
+/* ================= BODY ================= */
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ================= HERO SECTION ================= */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+
+  background-image: url("/ps.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 128, 128, 0.2);
+}
+
+/* ================= GLOBAL IMPROVEMENTS ================= */
+
+/* Smooth UI */
+* {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Image responsiveness */
+img {
+  max-width: 100%;
+  height: auto;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* ================= VALUES SECTION ================= */
+
+/* Auto scroll animation */
+@keyframes scrollX {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scrollX 30s linear infinite;
+}
+
+/* Card base */
+.value-card {
+  min-width: 260px;
+  max-width: 260px;
+  background: white;
+  padding: 24px;
+  border-radius: 24px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+/* Alternate colors */
+.value-card.green {
+  background: #E6F7F5;
+}
+
+.value-card.light {
+  background: #F0FFFB;
+}
+
+/* Icon */
+.value-card .icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+/* Title */
+.value-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1D646B;
+  margin-bottom: 8px;
+}
+
+/* Text */
+.value-card p {
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* Hover effect */
+.value-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 20px 40px rgba(29, 100, 107, 0.2);
+}
+
+/* Pause on hover */
+.animate-scroll:hover {
+  animation-play-state: paused;
 }
