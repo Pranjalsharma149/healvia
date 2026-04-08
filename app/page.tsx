@@ -307,11 +307,9 @@ export default function Home() {
           <div className="text-center lg:text-left">
             <h2 className="text-3xl md:text-4xl font-bold text-[#1D646B] mb-6">Real Patient Experiences</h2>
             <p className="text-slate-500 text-base md:text-lg mb-8 max-w-md mx-auto lg:mx-0">Hear directly from our patients about their treatment journey with HealviaCare.</p>
-            <Link href="/book-now">
-              <button className="px-8 py-4 rounded-xl bg-gradient-to-r from-[#1D646B] to-[#3BA99C] text-white font-semibold shadow-lg hover:scale-105 transition">
-                Book Free Consultation
-              </button>
-            </Link>
+            
+              
+            
           </div>
 
           <div className="relative flex flex-row lg:flex-none items-center justify-center lg:min-h-[450px] gap-4 lg:gap-0 mt-10 lg:mt-0">
