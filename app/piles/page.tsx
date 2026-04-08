@@ -14,38 +14,39 @@ import {
   ShieldCheck, 
   Stethoscope,
   ArrowRight,
-  Bone
+  Target,
+  Flame
 } from "lucide-react";
 
-export default function OrthopedicsPage() {
-  const [form, setForm] = useState({ name: "", phone: "", city: "", service: "Orthopedics" });
+export default function PilesPage() {
+  const [form, setForm] = useState({ name: "", phone: "", city: "", service: "Piles (Proctology)" });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const treatments = [
     {
-      title: "Knee Replacement",
-      desc: "Robotic-assisted precision for faster recovery and better joint alignment.",
-      icon: <Bone className="text-teal-500" />,
-      tag: "Robotic"
+      title: "Laser Piles Treatment",
+      desc: "Advanced LHP (Laser Hemorrhoidoplasty) for painless removal without cuts or stitches.",
+      icon: <Flame className="text-orange-500" />,
+      tag: "Painless"
     },
     {
-      title: "Hip Replacement",
-      desc: "Minimally invasive surgery for long-lasting mobility and minimal scarring.",
-      icon: <Activity className="text-blue-500" />,
+      title: "Fissure Surgery",
+      desc: "Precision laser treatment for chronic fissures ensuring rapid healing and no recurrence.",
+      icon: <Target className="text-blue-500" />,
+      tag: "No Stitches"
+    },
+    {
+      title: "Fistula (VAAFT)",
+      desc: "Video-assisted treatment for complex fistulas to preserve sphincter control.",
+      icon: <Activity className="text-emerald-500" />,
+      tag: "High Success"
+    },
+    {
+      title: "Pilonidal Sinus",
+      desc: "Minimally invasive EPSiT procedure for deep-seated sinus with minimal scarring.",
+      icon: <Zap className="text-purple-500" />,
       tag: "Fast Recovery"
-    },
-    {
-      title: "Spine Surgery",
-      desc: "Endoscopic treatments for slip disc, sciatica, and chronic back pain.",
-      icon: <Stethoscope className="text-emerald-500" />,
-      tag: "Endoscopic"
-    },
-    {
-      title: "Sports Injuries",
-      desc: "Advanced ACL/MCL repair and shoulder reconstruction for athletes.",
-      icon: <Zap className="text-orange-500" />,
-      tag: "Arthroscopy"
     }
   ];
 
@@ -83,24 +84,24 @@ export default function OrthopedicsPage() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
                 </span>
-                Robotic-Assisted Joint Care
+                USFDA Approved Laser Care
               </div>
               <h1 className="text-5xl lg:text-7xl font-black mb-6 leading-[1.1] tracking-tight">
-                Regain Your <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-400">Mobility.</span>
+                Pain-Free <br/>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-400">Piles Relief.</span>
               </h1>
               <p className="text-xl text-slate-400 mb-10 max-w-lg font-medium leading-relaxed">
-                India's leading network for Robotic Knee & Hip replacement. Advanced physiotherapy and 0% EMI options available.
+                India's leading experts in Laser Proctology. Get treated in 30 minutes and go home the same day. 0% EMI options available.
               </p>
               
               <div className="flex flex-wrap gap-8 border-t border-white/10 pt-10">
                 <div>
-                  <p className="text-3xl font-black text-white">15,000+</p>
-                  <p className="text-teal-500 text-sm font-bold uppercase tracking-wider">Joints Replaced</p>
+                  <p className="text-3xl font-black text-white">25,000+</p>
+                  <p className="text-teal-500 text-sm font-bold uppercase tracking-wider">Successful Procedures</p>
                 </div>
                 <div>
-                  <p className="text-3xl font-black text-white">98.5%</p>
-                  <p className="text-teal-500 text-sm font-bold uppercase tracking-wider">Success Rate</p>
+                  <p className="text-3xl font-black text-white">100%</p>
+                  <p className="text-teal-500 text-sm font-bold uppercase tracking-wider">Confidentiality</p>
                 </div>
               </div>
             </motion.div>
@@ -115,13 +116,13 @@ export default function OrthopedicsPage() {
                 <div className="bg-white p-12 rounded-[40px] shadow-2xl text-center border-4 border-emerald-50 text-slate-900">
                   <CheckCircle2 size={60} className="text-emerald-500 mx-auto mb-6" />
                   <h2 className="text-2xl font-black mb-2">Request Sent!</h2>
-                  <p className="text-slate-500 mb-6 font-medium">Our orthopedic counselor will call you within 15 minutes.</p>
+                  <p className="text-slate-500 mb-6 font-medium">Our medical counselor will call you within 15 minutes for a private consultation.</p>
                   <button onClick={() => setSubmitted(false)} className="text-teal-600 font-bold hover:underline">Book for another patient</button>
                 </div>
               ) : (
                 <div className="bg-white p-10 rounded-[40px] shadow-2xl text-slate-900 border border-slate-100">
-                  <h2 className="text-2xl font-black mb-2 text-[#1D646B]">Consult Expert</h2>
-                  <p className="text-slate-500 text-sm mb-8 font-medium">Get a call from a top orthopedic surgeon.</p>
+                  <h2 className="text-2xl font-black mb-2 text-[#1D646B]">Consult Specialist</h2>
+                  <p className="text-slate-500 text-sm mb-8 font-medium">Book a confidential call with a top Proctologist.</p>
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <input 
                       type="text" placeholder="Patient Name" required 
@@ -159,8 +160,8 @@ export default function OrthopedicsPage() {
         {/* --- SPECIALTY GRID --- */}
         <section className="py-24 max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">Our Specialties</h2>
-            <p className="text-slate-500 mt-4 text-lg font-medium">Precision treatments for every bone and joint concern.</p>
+            <h2 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">Our Laser Expertise</h2>
+            <p className="text-slate-500 mt-4 text-lg font-medium">Advanced, minimally invasive care for rectal health.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {treatments.map((t, i) => (
@@ -182,29 +183,29 @@ export default function OrthopedicsPage() {
         <section className="py-24 bg-slate-50">
           <div className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center gap-20">
             <div className="lg:w-1/2 relative">
-               <div className="aspect-[4/5] bg-slate-200 rounded-[60px] overflow-hidden shadow-2xl">
-                 <Image 
-                    src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800" 
-                    alt="Orthopedic Recovery" fill className="object-cover hover:scale-105 transition-transform duration-700"
-                 />
-               </div>
-               <div className="absolute -bottom-10 -right-10 bg-white p-8 rounded-[40px] shadow-2xl max-w-xs border border-teal-50">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center">
-                        <Activity size={20} />
-                    </div>
-                    <p className="text-[#1D646B] font-black text-lg">Fast-Track Recovery</p>
-                  </div>
-                  <p className="text-sm text-slate-500 leading-relaxed font-medium">92% of our patients begin walking comfortably within 24 hours of surgery.</p>
-               </div>
+                <div className="aspect-[4/5] bg-slate-200 rounded-[60px] overflow-hidden shadow-2xl">
+                  <Image 
+                    src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=800" 
+                    alt="Piles Care Excellence" fill className="object-cover hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
+                <div className="absolute -bottom-10 -right-10 bg-white p-8 rounded-[40px] shadow-2xl max-w-xs border border-teal-50">
+                   <div className="flex items-center gap-3 mb-3">
+                     <div className="w-10 h-10 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center">
+                         <Activity size={20} />
+                     </div>
+                     <p className="text-[#1D646B] font-black text-lg">Quick Discharge</p>
+                   </div>
+                   <p className="text-sm text-slate-500 leading-relaxed font-medium">95% of our laser patients resume normal light activity within 48 hours.</p>
+                </div>
             </div>
             <div className="lg:w-1/2">
-              <h2 className="text-4xl lg:text-6xl font-black text-slate-900 mb-10 tracking-tight leading-tight">Patient-First Care Path</h2>
+              <h2 className="text-4xl lg:text-6xl font-black text-slate-900 mb-10 tracking-tight leading-tight">Modern Care Protocol</h2>
               <div className="space-y-10">
                 {[
-                  {h: "Digital 3D Planning", d: "Pre-operative mapping of your joint for a personalized implant fit.", i: "01"},
-                  {h: "Robotic Precision", d: "Sub-millimeter accuracy ensuring bone preservation and minimal pain.", i: "02"},
-                  {h: "Advanced Physiotherapy", d: "Home-based rehab support to get you back to your active life.", i: "03"}
+                  {h: "Laser Precision", d: "German laser technology targets the affected tissue without touching healthy skin.", i: "01"},
+                  {h: "Daycare Procedure", d: "Surgery usually takes 20-30 minutes, allowing for same-day discharge.", i: "02"},
+                  {h: "Minimal Follow-ups", d: "No major dressings or painful wound cleaning required post-procedure.", i: "03"}
                 ].map((item, idx) => (
                   <div key={idx} className="flex gap-8 group">
                     <div className="w-16 h-16 bg-white border border-slate-200 text-[#1D646B] rounded-[24px] flex items-center justify-center shrink-0 font-black text-xl shadow-sm group-hover:bg-[#1D646B] group-hover:text-white transition-all duration-300">
@@ -222,7 +223,7 @@ export default function OrthopedicsPage() {
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 className="mt-12 flex items-center gap-3 text-[#1D646B] font-black text-lg group"
               >
-                Start your journey to mobility <ChevronRight className="group-hover:translate-x-1 transition-transform" />
+                Start your journey to recovery <ChevronRight className="group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
           </div>

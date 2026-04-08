@@ -1,152 +1,187 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, ChevronRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import { ChevronDown, Menu, X } from "lucide-react";
 
-const Header = () => {
+const treatments = [
+  { name: "LASIK Eye Surgery", href: "/lasik" },
+  { name: "Cataract Surgery", href: "/cataract" },
+  { name: "Urology (Kidney Stones)", href: "/urology" },
+  { name: "Vascular (Varicose Veins)", href: "/vascular" },
+  { name: "Orthopedics", href: "/orthopedics" },
+  { name: "Gastroenterology", href: "/gastro" },
+  { name: "Piles (Proctology)", href: "/piles" },
+  { name: "Internal Medicine", href: "/internalmedicine" },
+];
+
+export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
 
-  // Close mobile menu on window resize
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024) setIsOpen(false);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const scrollToSection = (id: string) => {
+    setIsOpen(false);
 
-  const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "Blog", href: "/blog" },
-    { name: "Partner Hospitals", href: "/hospitals" },
-    { name: "Specialities", href: "/specialities" },
-  ];
+    if (window.location.pathname !== "/") {
+      window.location.href = `/#${id}`;
+      return;
+    }
+
+    const element = document.getElementById(id);
+    if (element) {
+      const yOffset = -90;
+      const y =
+        element.getBoundingClientRect().top +
+        window.pageYOffset +
+        yOffset;
+
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  };
 
   return (
-    <header className="w-full bg-white shadow-md fixed top-0 left-0 z-[100]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 md:py-5 flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-[100] bg-white border-b border-slate-100 shadow-sm">
+      
+      {/* MAIN HEADER */}
+      <div className="max-w-7xl mx-auto pr-6 flex items-center justify-between h-[80px]">
         
-        {/* LOGO */}
-        <Link href="/" className="flex items-center gap-2 md:gap-4 group shrink-0">
-          <img
-            src="/l1.png"
-            alt="HealviaCare Logo"
-            className="h-10 w-10 md:h-16 md:w-16 object-contain group-hover:scale-105 transition-transform"
+        {/* ✅ LOGO (EXTREME LEFT FIX ONLY) */}
+        <Link href="/" className="flex items-center -ml-4 md:-ml-6">
+          <Image
+            src="/vb.png"
+            alt="HealviaCare"
+            width={320}
+            height={80}
+            priority
+            className="h-14 md:h-16 w-auto object-contain"
           />
-          <div className="leading-tight">
-            <h1 className="text-lg md:text-2xl font-bold text-[#1D646B] tracking-tight">
-              HealviaCare
-            </h1>
-            <p className="hidden xs:block text-[10px] md:text-sm text-gray-500 font-medium">
-              Your Health, Our Priority
-            </p>
-          </div>
         </Link>
 
         {/* DESKTOP NAV */}
-        <nav className="hidden lg:flex items-center gap-8 text-gray-700 font-semibold">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.name} 
-              href={link.href} 
-              className="hover:text-[#1D646B] relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-[#1D646B] after:left-0 after:-bottom-1 hover:after:w-full after:transition-all transition"
-            >
-              {link.name}
-            </Link>
-          ))}
+        <nav className="hidden lg:flex items-center gap-10">
+          
+          <Link href="/" className="text-[15px] font-bold text-slate-700 hover:text-[#1D646B] transition">
+            Home
+          </Link>
+
+          {/* DROPDOWN */}
+          <div
+            className="relative group"
+            onMouseEnter={() => setShowDropdown(true)}
+            onMouseLeave={() => setShowDropdown(false)}
+          >
+            <button className="flex items-center gap-1 text-[15px] font-bold text-slate-700 group-hover:text-[#1D646B] transition">
+              Treatments
+              <ChevronDown
+                size={16}
+                className={`transition-transform duration-300 ${
+                  showDropdown ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+
+            {showDropdown && (
+              <div className="absolute top-full -left-10 pt-4 w-[260px]">
+                <div className="bg-white rounded-2xl shadow-2xl border border-slate-100 p-2">
+                  {treatments.map((item) => (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      className="block px-4 py-3 text-sm font-medium text-slate-600 hover:bg-[#F0FFF4] hover:text-[#1D646B] rounded-xl transition"
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <button
+            onClick={() => scrollToSection("why-choose-us")}
+            className="text-[15px] font-bold text-slate-700 hover:text-[#1D646B] transition"
+          >
+            About Us
+          </button>
+
+          <button
+            onClick={() => scrollToSection("talk-to-specialist")}
+            className="text-[15px] font-bold text-slate-700 hover:text-[#1D646B] transition"
+          >
+            Contact Us
+          </button>
         </nav>
 
-        {/* RIGHT ACTIONS */}
-        <div className="flex items-center gap-2 md:gap-4">
-          <Link
-            href="/auth"
-            className="hidden sm:inline-block text-[#1D646B] border-2 border-[#1D646B] px-4 py-2 rounded-xl font-bold text-sm hover:bg-[#1D646B] hover:text-white transition-all active:scale-95"
-          >
-            Login
+        {/* CTA */}
+        <div className="hidden md:flex items-center gap-6">
+          <Link href="/book-now">
+            <button className="px-6 py-3 rounded-2xl bg-gradient-to-r from-[#1D646B] to-[#3BA99C] text-white text-sm font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all active:scale-95">
+              Book Free Consultation
+            </button>
           </Link>
-
-          {/* RESPONSIVE CTA BUTTON */}
-          <Link
-            href="/book-now"
-            className="bg-gradient-to-r from-[#1D646B] to-[#2D8E98] text-white 
-                       px-3 py-2 text-xs 
-                       md:px-6 md:py-3 md:text-sm 
-                       rounded-lg md:rounded-xl font-bold shadow-lg hover:shadow-[#1D646B]/30 transition-all hover:-translate-y-0.5 active:scale-95 whitespace-nowrap"
-          >
-            Free Consultation
-          </Link>
-
-          {/* HAMBURGER ICON */}
-          <button 
-            onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-1.5 md:p-2 text-[#1D646B] hover:bg-gray-100 rounded-lg transition"
-            aria-label="Toggle Menu"
-          >
-            {isOpen ? <X size={24} className="md:w-7 md:h-7" /> : <Menu size={24} className="md:w-7 md:h-7" />}
-          </button>
         </div>
+
+        {/* MOBILE MENU BUTTON */}
+        <button
+          className="lg:hidden p-2 text-slate-700"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? <X size={32} /> : <Menu size={32} />}
+        </button>
       </div>
 
-      {/* MOBILE OVERLAY MENU */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm lg:hidden z-[90]"
-            />
-            
-            <motion.div 
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed right-0 top-0 h-full w-[80%] max-w-sm bg-white shadow-2xl z-[110] lg:hidden p-6 flex flex-col"
-            >
-              <div className="flex justify-between items-center mb-10">
-                <span className="text-[#1D646B] font-bold text-xl">Menu</span>
-                <button onClick={() => setIsOpen(false)} className="p-2 bg-gray-100 rounded-full">
-                  <X size={24} className="text-gray-600" />
-                </button>
-              </div>
+      {/* MOBILE MENU */}
+      {isOpen && (
+        <div className="lg:hidden absolute top-full left-0 right-0 bg-white border-t shadow-2xl p-6">
+          <div className="flex flex-col gap-6">
 
-              <nav className="flex flex-col gap-2">
-                {navLinks.map((link) => (
+            <Link href="/" onClick={() => setIsOpen(false)} className="text-lg font-bold">
+              Home
+            </Link>
+
+            <div className="space-y-4">
+              <p className="text-[10px] font-black uppercase text-slate-400">
+                Our Treatments
+              </p>
+
+              <div className="grid gap-3 pl-3 border-l-2 border-[#1D646B]/10">
+                {treatments.map((item) => (
                   <Link
-                    key={link.name}
-                    href={link.href}
+                    key={item.name}
+                    href={item.href}
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-between p-4 rounded-xl text-gray-700 font-bold hover:bg-[#1D646B]/5 hover:text-[#1D646B] transition"
+                    className="text-[15px]"
                   >
-                    {link.name}
-                    <ChevronRight size={18} className="opacity-50" />
+                    {item.name}
                   </Link>
                 ))}
-              </nav>
-
-              <div className="mt-auto flex flex-col gap-4">
-                <Link
-                  href="/auth"
-                  onClick={() => setIsOpen(false)}
-                  className="w-full text-center py-4 rounded-xl border-2 border-[#1D646B] text-[#1D646B] font-bold"
-                >
-                  Login / Sign Up
-                </Link>
-                <p className="text-center text-xs text-gray-400">
-                  © 2026 HealviaCare.
-                </p>
               </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+            </div>
+
+            <button
+              onClick={() => scrollToSection("why-choose-us")}
+              className="text-lg font-bold text-left"
+            >
+              About Us
+            </button>
+
+            <button
+              onClick={() => scrollToSection("talk-to-specialist")}
+              className="text-lg font-bold text-left"
+            >
+              Contact Us
+            </button>
+
+            <Link href="/book-now" onClick={() => setIsOpen(false)}>
+              <button className="w-full py-4 rounded-2xl bg-[#1D646B] text-white font-bold">
+                Book Free Consultation
+              </button>
+            </Link>
+
+          </div>
+        </div>
+      )}
     </header>
   );
-};
-
-export default Header;
+}

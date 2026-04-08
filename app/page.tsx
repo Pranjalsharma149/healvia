@@ -10,9 +10,9 @@ import {
   Droplets,
   HeartPulse,
   Bone,
-  Brain,
   Stethoscope,
   Hospital,
+  Activity,
 } from "lucide-react";
 
 import {
@@ -67,10 +67,10 @@ const services = [
     color: "bg-[#F0FFF4]",
   },
   {
-    title: "Neurology",
-    desc: "Stroke, Epilepsy & Brain treatments.",
-    icon: Brain,
-    href: "/neurology",
+    title: "Piles (Proctology)",
+    desc: "Laser treatment for Piles, Fissure, and Fistula.",
+    icon: Activity,
+    href: "/piles",
     color: "bg-[#F5F3FF]",
   },
   {
@@ -80,6 +80,20 @@ const services = [
     href: "/internalmedicine",
     color: "bg-[#FFF0F6]",
   },
+];
+
+/* ---------------- INSURANCE DATA ---------------- */
+const insurancePartners = [
+  "Acko General Insurance", "Aditya Birla Health Insurance", "Bajaj Allianz General Insurance",
+  "Bharti AXA General Insurance", "Care Health Insurance", "Cholamandalam MS General Insurance",
+  "Edelweiss General Insurance", "Future Generali India Insurance", "Go Digit General Insurance",
+  "HDFC ERGO General Insurance", "ICICI Lombard General Insurance", "Kotak Mahindra General Insurance",
+  "IFFCO TOKIO General Insurance", "Liberty General Insurance", "Magma HDI General Insurance",
+  "Manipal Cigna Health Insurance", "Max Bupa Health Insurance", "Navi General Insurance",
+  "National Insurance Company", "Reliance General Insurance", "Royal Sundaram General Insurance",
+  "SBI General Insurance", "Star Health and Allied Insurance", "Tata AIG General Insurance",
+  "The New India Assurance Company", "The Oriental Insurance Company", "United India Insurance Company",
+  "Universal Sompo General Insurance"
 ];
 
 export default function Home() {
@@ -106,11 +120,10 @@ export default function Home() {
       <Header />
 
       {/* ---------------- HERO SECTION ---------------- */}
-      {/* Uses modern Next.js Image handling to ensure l1.png scales automatically */}
-      <section className="relative w-full overflow-hidden bg-white">
+      <section className="relative w-full overflow-hidden bg-white pt-[72px] md:pt-[88px]">
         <div className="w-full h-auto flex flex-col items-center">
           <Image
-            src="/ps.png"
+            src="/jd.png"
             alt="HealviaCare Banner"
             width={1920}
             height={1080}
@@ -160,8 +173,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------------- WHY CHOOSE US ---------------- */}
-      <section className="py-16 md:py-24 px-6 lg:px-20 bg-gradient-to-b from-[#f8fbfb] to-[#eef6f6]">
+      {/* ---------------- WHY CHOOSE US (ABOUT US ANCHOR) ---------------- */}
+      <section 
+        id="why-choose-us" 
+        className="py-16 md:py-24 px-6 lg:px-20 bg-gradient-to-b from-[#f8fbfb] to-[#eef6f6] scroll-mt-20"
+      >
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-[#1D646B]">
             Why Choose HealviaCare?
@@ -211,136 +227,137 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------------- MISSION SECTION ---------------- */}
-      <section className="py-16 md:py-24 px-6 lg:px-20 bg-gradient-to-b from-white to-[#f6fbfb]">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1D646B]">Our Mission</h2>
-          <p className="text-slate-500 mt-4 text-base md:text-lg max-w-2xl mx-auto">
-            Delivering accessible, affordable, and high-quality healthcare with compassion and trust.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          <div className="group bg-white rounded-3xl p-8 shadow-md border border-slate-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-            <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-[#E6F7F5] mb-6 group-hover:scale-110 transition text-2xl">💙</div>
-            <h3 className="text-xl font-bold text-[#1D646B] mb-3">Patient First</h3>
-            <p className="text-slate-500 text-sm">Every decision is centered around patient comfort, safety, and satisfaction.</p>
+      {/* ---------------- INSURANCE PARTNERS SECTION ---------------- */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1D646B] mb-4">
+              Our Trusted Insurance Partners
+            </h2>
+            <p className="text-slate-500 max-w-2xl mx-auto">
+              We partner with leading insurance providers to ensure you receive the best care and coverage without financial stress.
+            </p>
           </div>
-          <div className="group bg-white rounded-3xl p-8 shadow-md border border-slate-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-            <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-[#EAF2FF] mb-6 group-hover:scale-110 transition text-2xl">🛡️</div>
-            <h3 className="text-xl font-bold text-[#1D646B] mb-3">Transparent Care</h3>
-            <p className="text-slate-500 text-sm">Honest guidance, clear pricing, and zero hidden surprises throughout your journey.</p>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+            {insurancePartners.map((partner, index) => (
+              <div
+                key={index}
+                className="group relative flex items-center justify-center p-6 bg-white border border-slate-100 rounded-2xl shadow-sm transition-all duration-300 hover:border-[#1D646B]/30 hover:-translate-y-1 cursor-default h-24 md:h-28"
+              >
+                <div className="absolute inset-0 rounded-2xl bg-[#F0FFF4] opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 shadow-[0_0_25px_rgba(29,100,107,0.15)]"></div>
+                
+                <p className="text-center text-xs md:text-sm font-semibold text-slate-700 group-hover:text-[#1D646B] transition-colors duration-300">
+                  {partner}
+                </p>
+              </div>
+            ))}
           </div>
-          <div className="group bg-white rounded-3xl p-8 shadow-md border border-slate-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-            <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-[#FFF4E6] mb-6 group-hover:scale-110 transition text-2xl">🏥</div>
-            <h3 className="text-xl font-bold text-[#1D646B] mb-3">Seamless Experience</h3>
-            <p className="text-slate-500 text-sm">From consultation to recovery, we handle everything for a stress-free experience.</p>
+          
+          <div className="mt-12 text-center">
+            <p className="text-slate-400 text-xs italic">
+              *All logos and names are trademarks of their respective owners.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* ---------------- OUR VISION SECTION ---------------- */}
-      <section className="py-16 md:py-24 px-6 lg:px-20 bg-gradient-to-b from-[#f6fbfb] to-white">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1D646B]">Our Vision</h2>
-          <p className="text-slate-500 mt-4 text-base md:text-lg max-w-2xl mx-auto">
-            Transforming healthcare through innovation, trust, and patient-first technology.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          <div className="group relative overflow-hidden rounded-3xl p-8 bg-white border border-slate-100 shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#1D646B] to-[#3BA99C] opacity-0 group-hover:opacity-100 transition duration-500"></div>
-            <div className="relative z-10">
-              <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-[#E6F7F5] mb-6 group-hover:bg-white/20 group-hover:scale-110 transition text-2xl">🌍</div>
-              <h3 className="text-xl font-bold text-[#1D646B] group-hover:text-white mb-3 transition">Accessible Healthcare</h3>
-              <p className="text-slate-500 group-hover:text-white/90 text-sm transition">Making quality healthcare reachable for every individual across cities and towns.</p>
+      {/* ---------------- MISSION, VISION & VALUES SECTION ---------------- */}
+      <section className="py-16 md:py-24 px-6 lg:px-20 bg-slate-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-[#1D646B] mb-4">Our Mission</h2>
+              <p className="text-slate-600 text-lg leading-relaxed">
+                At HealviaCare, our mission is to simplify the complex healthcare journey by bridging the gap between world-class surgical expertise and patients in need. We are dedicated to providing 360-degree support, ensuring every individual receives timely, compassionate, and high-quality medical attention.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-[#1D646B] mb-4">Our Vision</h2>
+              <p className="text-slate-600 text-lg leading-relaxed">
+                We envision a future where high-end healthcare is not a luxury but a standard accessible to all. By leveraging cutting-edge medical technology and a vast network of accredited hospitals, we aim to become India's most trusted healthcare partner.
+              </p>
             </div>
           </div>
-          <div className="group relative overflow-hidden rounded-3xl p-8 bg-white border border-slate-100 shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#1D646B] to-[#3BA99C] opacity-0 group-hover:opacity-100 transition duration-500"></div>
-            <div className="relative z-10">
-              <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-[#E8FFF5] mb-6 group-hover:bg-white/20 group-hover:scale-110 transition text-2xl">⚙️</div>
-              <h3 className="text-xl font-bold text-[#1D646B] group-hover:text-white mb-3 transition">Innovation Driven</h3>
-              <p className="text-slate-500 group-hover:text-white/90 text-sm transition">Leveraging technology to simplify medical journeys and improve outcomes.</p>
-            </div>
-          </div>
-          <div className="group relative overflow-hidden rounded-3xl p-8 bg-white border border-slate-100 shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#1D646B] to-[#3BA99C] opacity-0 group-hover:opacity-100 transition duration-500"></div>
-            <div className="relative z-10">
-              <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-[#F0FFF4] mb-6 group-hover:bg-white/20 group-hover:scale-110 transition text-2xl">🤝</div>
-              <h3 className="text-xl font-bold text-[#1D646B] group-hover:text-white mb-3 transition">Trusted Care</h3>
-              <p className="text-slate-500 group-hover:text-white/90 text-sm transition">Building long-term trust through transparency, empathy, and expert care.</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* ---------------- OUR VALUES SECTION ---------------- */}
-      <section className="py-16 md:py-24 px-6 lg:px-20 bg-gradient-to-b from-white to-[#f4fbfb]">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1D646B]">Our Values</h2>
-          <p className="text-slate-500 mt-4 text-base md:text-lg max-w-2xl mx-auto">
-            Our core principles ensure every patient receives trusted, transparent, and world-class healthcare.
-          </p>
-        </div>
-        <div className="relative max-w-7xl mx-auto overflow-hidden">
-          <div className="flex gap-6 w-max animate-scroll">
-            <div className="value-card"><div className="icon">❤️</div><h3>Compassion</h3><p>We treat every patient with care, empathy, and respect.</p></div>
-            <div className="value-card green"><div className="icon">🤝</div><h3>Trust</h3><p>We build strong relationships through honesty and reliability.</p></div>
-            <div className="value-card"><div className="icon">⚡</div><h3>Efficiency</h3><p>Quick and seamless healthcare services without delays.</p></div>
-            <div className="value-card light"><div className="icon">🔍</div><h3>Transparency</h3><p>No hidden costs, no confusion — just clear communication.</p></div>
-            <div className="value-card"><div className="icon">🏥</div><h3>Excellence</h3><p>Top-quality treatments delivered by expert doctors.</p></div>
-            <div className="value-card green"><div className="icon">💡</div><h3>Innovation</h3><p>Modern technology to improve patient outcomes.</p></div>
-            {/* Duplicates for looping */}
-            <div className="value-card"><div className="icon">❤️</div><h3>Compassion</h3><p>We treat every patient with care, empathy, and respect.</p></div>
-            <div className="value-card green"><div className="icon">🤝</div><h3>Trust</h3><p>We build strong relationships through honesty and reliability.</p></div>
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1D646B]">Our Values</h2>
+            <p className="text-slate-500 mt-2">The core principles that drive our commitment to you.</p>
+          </div>
+
+          <div className="relative overflow-hidden">
+            <div className="flex gap-6 w-max animate-scroll">
+              <div className="value-card"><div className="icon">❤️</div><h3>Compassion</h3><p>We treat every patient with care, empathy, and respect.</p></div>
+              <div className="value-card green"><div className="icon">🤝</div><h3>Trust</h3><p>We build strong relationships through honesty and reliability.</p></div>
+              <div className="value-card"><div className="icon">⚡</div><h3>Efficiency</h3><p>Quick and seamless healthcare services without delays.</p></div>
+              <div className="value-card light"><div className="icon">🔍</div><h3>Transparency</h3><p>No hidden costs, no confusion — just clear communication.</p></div>
+              <div className="value-card"><div className="icon">🏥</div><h3>Excellence</h3><p>Top-quality treatments delivered by expert doctors.</p></div>
+              <div className="value-card green"><div className="icon">💡</div><h3>Innovation</h3><p>Modern technology to improve patient outcomes.</p></div>
+              {/* Loop duplicates for animation */}
+              <div className="value-card"><div className="icon">❤️</div><h3>Compassion</h3><p>We treat every patient with care, empathy, and respect.</p></div>
+              <div className="value-card green"><div className="icon">🤝</div><h3>Trust</h3><p>We build strong relationships through honesty and reliability.</p></div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ---------------- PATIENT EXPERIENCES ---------------- */}
-      <section className="py-16 md:py-24 px-6 lg:px-20 bg-gradient-to-br from-[#f8fbfb] to-[#eef6f6]">
+      <section className="py-16 md:py-24 px-6 lg:px-20 bg-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
           <div className="text-center lg:text-left">
             <h2 className="text-3xl md:text-4xl font-bold text-[#1D646B] mb-6">Real Patient Experiences</h2>
             <p className="text-slate-500 text-base md:text-lg mb-8 max-w-md mx-auto lg:mx-0">Hear directly from our patients about their treatment journey with HealviaCare.</p>
-            <Link href="/contact">
+            <Link href="/book-now">
               <button className="px-8 py-4 rounded-xl bg-gradient-to-r from-[#1D646B] to-[#3BA99C] text-white font-semibold shadow-lg hover:scale-105 transition">
                 Book Free Consultation
               </button>
             </Link>
           </div>
-          <div className="relative flex items-center justify-center min-h-[450px]">
-            <Link href="/testimonials">
-              <div className="relative w-[220px] h-[360px] md:w-[260px] md:h-[420px] rounded-3xl overflow-hidden shadow-xl group cursor-pointer z-20">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#cfeeee] to-[#e6f7f5]"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white/70 flex items-center justify-center backdrop-blur-md group-hover:scale-110 transition">▶</div>
-                </div>
-                <div className="absolute bottom-4 left-4 right-4 bg-white/70 backdrop-blur-md rounded-xl px-4 py-2 text-sm font-semibold text-[#1D646B]">LASIK Patient Story</div>
+
+          <div className="relative flex flex-row lg:flex-none items-center justify-center lg:min-h-[450px] gap-4 lg:gap-0 mt-10 lg:mt-0">
+            <div className="relative w-[160px] h-[280px] md:w-[220px] md:h-[380px] lg:w-[260px] lg:h-[420px] rounded-3xl overflow-hidden shadow-xl group z-20 bg-black">
+              <video 
+                className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+                src="/VAS.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+              />
+              <div className="absolute bottom-4 left-2 right-2 md:left-4 md:right-4 bg-white/70 backdrop-blur-md rounded-xl px-2 py-2 text-[10px] md:text-sm font-semibold text-[#1D646B] text-center">
+                LASIK Patient Story
               </div>
-            </Link>
-            <Link href="/testimonials">
-              <div className="absolute bottom-0 left-1/2 lg:left-0 -translate-x-1/2 lg:translate-x-[-20%] translate-y-[10%] w-[150px] h-[220px] md:w-[180px] md:h-[260px] rounded-3xl overflow-hidden shadow-lg group cursor-pointer z-30">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#dff7f5] to-[#f0fffc]"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/70 flex items-center justify-center backdrop-blur-md group-hover:scale-110 transition">▶</div>
-                </div>
-                <div className="absolute bottom-3 left-3 right-3 bg-white/70 backdrop-blur-md rounded-lg px-3 py-1 text-[10px] md:text-xs font-semibold text-[#1D646B]">Piles Patient Story</div>
+            </div>
+            
+            <div className="relative lg:absolute bottom-0 lg:left-0 lg:-translate-x-[20%] lg:translate-y-[10%] w-[140px] h-[240px] md:w-[180px] md:h-[260px] rounded-3xl overflow-hidden shadow-lg group z-30 bg-black">
+              <video 
+                className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+                src="/VAS.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+              />
+              <div className="absolute bottom-3 left-2 right-2 bg-white/70 backdrop-blur-md rounded-lg px-2 py-1 text-[10px] md:text-xs font-semibold text-[#1D646B] text-center">
+                Piles Patient Story
               </div>
-            </Link>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ---------------- CTA SECTION ---------------- */}
-      <section className="relative py-20 md:py-28 px-6 lg:px-20 overflow-hidden">
+     <section 
+  id="talk-to-specialist"
+  className="relative py-20 md:py-28 px-6 lg:px-20 overflow-hidden"
+>
         <div className="absolute inset-0 bg-gradient-to-br from-[#0F3D3E] via-[#145A5C] to-[#1D646B]"></div>
         <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-[#0F3D3E]/80 to-transparent"></div>
         <div className="relative z-10 max-w-5xl mx-auto text-center">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Talk to a Specialist Today</h2>
           <p className="text-base md:text-lg text-white/80 mb-10">Get expert guidance for the right treatment from trusted doctors.</p>
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-6 mb-10">
-            <Link href="/contact" className="w-full sm:w-auto">
+            <Link href="/book-now" className="w-full sm:w-auto">
               <button className="w-full px-10 py-4 rounded-xl bg-gradient-to-r from-[#1D646B] to-[#3BA99C] text-white font-semibold shadow-xl hover:scale-105 transition">
                 Book Free Consultation
               </button>
